@@ -1,352 +1,250 @@
 // ============================================================
-// INTRADOS — Non-Technical Professional Assessment (HR / Admin roles)
-// 30 questions, weighted scoring (1–4 per option), single Total Score.
-// Derived from the "Interview Guide – Human Resource Executive".
-// Every question is judgment/scenario-based (mirrors how the guide
-// itself evaluates candidates) rather than pure right/wrong recall —
-// weights reflect how strong each response is, not whether it's
-// merely "correct". Option order is shuffled per question so the
-// best answer isn't always in the same position.
+// INTRADOS — Professional Aptitude Test (Non-Technical)
+// 30 questions, 1 mark each, objective right/wrong (correctIndex).
+// Source: "Non_Tech_Test.pdf" (source of truth).
+// Sections: A Logical Reasoning, B Analytical & Problem Solving,
+// C Numerical Reasoning, D Verbal & Comprehension, E Situational
+// Judgment.
 // ============================================================
 
 const QUESTIONS = [
   {
-    id: 1, section: "H", sectionLabel: "HR Judgment & Process",
-    text: "How would you best describe your day-to-day HR experience?",
-    options: [
-      "I sourced candidates, screened them, tracked numbers, and closed positions within timelines.",
-      "I forwarded resumes from job portals to my manager for review.",
-      "I coordinated interview schedules and followed up with candidates.",
-      "I posted job openings and waited for shortlists to come in."
-    ],
-    weights: [4, 1, 3, 2]
+    id: 1, section: "A", sectionLabel: "Logical Reasoning", marks: 1,
+    text: "Find the next number in the sequence: 3, 6, 12, 24, ?",
+    options: ["36", "42", "48", "54"],
+    correctIndex: 2
   },
   {
-    id: 2, section: "H", sectionLabel: "HR Judgment & Process",
-    text: "You're given three open positions today. What's your first step?",
+    id: 2, section: "A", sectionLabel: "Logical Reasoning", marks: 1,
+    text: "All managers are employees. Some employees work remotely. Which statement must be true?",
     options: [
-      "Start posting the same generic JD across job portals immediately.",
-      "Understand the job requirements and salary range, then prepare a proper JD.",
-      "Ask candidates already in the database to apply.",
-      "Wait for a detailed hiring plan before starting anything."
+      "All managers work remotely",
+      "Some managers work remotely",
+      "All remote workers are managers",
+      "Managers are employees"
     ],
-    weights: [2, 4, 3, 1]
+    correctIndex: 3
   },
   {
-    id: 3, section: "H", sectionLabel: "HR Judgment & Process",
-    text: "A candidate has accepted an offer, but their joining date is 20 days away. What do you do?",
-    options: [
-      "Consider the hiring closed since the offer has been accepted.",
-      "Wait for the candidate to reach out if there's any issue.",
-      "Follow up once, about a week before the joining date.",
-      "Stay connected periodically, confirm joining, and collect documents in advance."
-    ],
-    weights: [1, 2, 3, 4]
+    id: 3, section: "A", sectionLabel: "Logical Reasoning", marks: 1,
+    text: "If CAT = 3120 and DOG = 4157, following the same pattern, what would BAT be?",
+    options: ["2120", "2210", "2201", "3120"],
+    correctIndex: 0
   },
   {
-    id: 4, section: "H", sectionLabel: "HR Judgment & Process",
-    text: "Candidates keep not showing up for scheduled interviews. What's the best way to fix this long-term?",
-    options: [
-      "Add confirmation calls/reminders, understand the drop-off reasons, and improve screening.",
-      "Just schedule extra interviews to compensate for no-shows.",
-      "Point out to candidates that missing interviews is unprofessional.",
-      "Send one reconfirmation message before each interview."
-    ],
-    weights: [4, 2, 1, 3]
+    id: 4, section: "A", sectionLabel: "Logical Reasoning", marks: 1,
+    text: "A meeting is scheduled for Wednesday. It is postponed by 3 days and then brought forward by 2 days. On which day will it take place?",
+    options: ["Thursday", "Friday", "Saturday", "Monday"],
+    correctIndex: 0
   },
   {
-    id: 5, section: "H", sectionLabel: "HR Judgment & Process",
-    text: "How do you keep track of your hiring pipeline?",
-    options: [
-      "Rely on email threads to know where each candidate stands.",
-      "Maintain a hiring tracker covering sourcing, screening, interviews, and closure.",
-      "Keep mental notes since the team is small.",
-      "Use a shared spreadsheet, updated occasionally."
-    ],
-    weights: [2, 4, 1, 3]
+    id: 5, section: "A", sectionLabel: "Logical Reasoning", marks: 1,
+    text: "Five people—P, Q, R, S and T—are standing in a line. P is before Q. R is after Q. S is before P. T is after R. Who is definitely in the middle?",
+    options: ["P", "Q", "R", "S"],
+    correctIndex: 1
   },
   {
-    id: 6, section: "H", sectionLabel: "HR Judgment & Process",
-    text: "How would you onboard a new employee effectively?",
-    options: [
-      "Introduce them to the team and let their manager take it from there.",
-      "Share the employee handbook and let them read through it.",
-      "A structured plan — documentation, orientation, KRA, system access, training, and check-ins in the first weeks.",
-      "Hand over role documents and check in after a month."
-    ],
-    weights: [1, 2, 4, 3]
+    id: 6, section: "A", sectionLabel: "Logical Reasoning", marks: 1,
+    text: "Which one does NOT belong to the group?",
+    options: ["16", "25", "36", "48"],
+    correctIndex: 3
   },
   {
-    id: 7, section: "H", sectionLabel: "HR Judgment & Process",
-    text: "A new employee tells you, after five days, \"I don't understand what I'm supposed to do.\" What's your first move?",
-    options: [
-      "Tell them to ask their manager directly.",
-      "Listen first, then check whether expectations were actually explained, and speak with the manager.",
-      "Document the incident and monitor without acting yet.",
-      "Escalate it immediately to the manager as a performance concern."
-    ],
-    weights: [1, 4, 3, 2]
+    id: 7, section: "A", sectionLabel: "Logical Reasoning", marks: 1,
+    text: "If some A are B, and all B are C, which statement is definitely true?",
+    options: ["All A are C", "Some A are C", "No A are C", "All C are A"],
+    correctIndex: 1
   },
   {
-    id: 8, section: "H", sectionLabel: "HR Judgment & Process",
-    text: "Which onboarding practice best reflects strong process discipline?",
-    options: [
-      "A brief walkthrough on day one is usually enough.",
-      "Onboarding varies each time depending on who's available.",
-      "A checklist exists, but is mainly used for senior hires.",
-      "A documented onboarding checklist is followed for every new hire."
-    ],
-    weights: [2, 1, 3, 4]
+    id: 8, section: "A", sectionLabel: "Logical Reasoning", marks: 1,
+    text: "A person walks 5 metres north, turns right and walks 5 metres, then turns right again and walks 5 metres. In which direction is the person from the starting point?",
+    options: ["North", "South", "East", "West"],
+    correctIndex: 2
   },
   {
-    id: 9, section: "H", sectionLabel: "HR Judgment & Process",
-    text: "An employee is repeatedly coming in late. What's the right way to handle it?",
-    options: [
-      "Verify the data, speak with the employee, understand the reason, document it, and escalate per policy if it continues.",
-      "Keep verbally reminding them each time it happens.",
-      "Report it straight to the manager without speaking to the employee first.",
-      "Issue a written warning immediately without a conversation first."
-    ],
-    weights: [4, 1, 2, 3]
+    id: 9, section: "B", sectionLabel: "Analytical & Problem Solving", marks: 1,
+    text: "A task is normally completed in 8 hours by one person. Two people work on it together at the same rate. Approximately how long should it take?",
+    options: ["2 hours", "4 hours", "6 hours", "8 hours"],
+    correctIndex: 1
   },
   {
-    id: 10, section: "H", sectionLabel: "HR Judgment & Process",
-    text: "A senior employee is ignoring the attendance policy. What do you do?",
-    options: [
-      "Let it go, given their seniority.",
-      "Mention it informally, but don't document anything.",
-      "Document it, but wait for someone else to raise it first.",
-      "Apply the process respectfully and consistently, regardless of seniority."
-    ],
-    weights: [1, 2, 3, 4]
+    id: 10, section: "B", sectionLabel: "Analytical & Problem Solving", marks: 1,
+    text: "A company has 120 employees. 25% work in HR and Accounts combined. If HR has 12 employees, how many work in Accounts?",
+    options: ["15", "18", "20", "30"],
+    correctIndex: 1
   },
   {
-    id: 11, section: "H", sectionLabel: "HR Judgment & Process",
-    text: "Why is it important to document repeated behavioural issues, like chronic lateness?",
-    options: [
-      "It's only really needed if you're planning to terminate someone.",
-      "It creates a fair, consistent record to support any escalation per policy.",
-      "It's not necessary if you've already spoken to the person directly.",
-      "It's mainly useful for the employee's personal file, not for process."
-    ],
-    weights: [2, 4, 1, 3]
+    id: 11, section: "B", sectionLabel: "Analytical & Problem Solving", marks: 1,
+    text: "A report contains 200 entries. 8% contain errors. How many entries are error-free?",
+    options: ["184", "186", "192", "196"],
+    correctIndex: 2
   },
   {
-    id: 12, section: "H", sectionLabel: "HR Judgment & Process",
-    text: "An employee comes to you and complains about their manager. What's your first step?",
-    options: [
-      "Agree with them to make them feel heard and supported.",
-      "Tell them to sort it out directly with the manager.",
-      "Take notes and immediately inform the manager.",
-      "Listen without reacting immediately, and get specific facts and examples."
-    ],
-    weights: [1, 2, 3, 4]
+    id: 12, section: "B", sectionLabel: "Analytical & Problem Solving", marks: 1,
+    text: "Four candidates scored: A: 72, B: 84, C: 78, D: 66. If the passing score is increased from 70 to 80, how many candidates still pass?",
+    options: ["1", "2", "3", "4"],
+    correctIndex: 0
   },
   {
-    id: 13, section: "H", sectionLabel: "HR Judgment & Process",
-    text: "Two employees are in conflict. How do you approach it?",
-    options: [
-      "Pick the side that seems more reasonable to move things along.",
-      "Tell them to sort it out between themselves.",
-      "Hear both sides, separate facts from emotions, and involve the manager if needed.",
-      "Escalate straight to leadership without hearing both sides first."
-    ],
-    weights: [1, 2, 4, 3]
+    id: 13, section: "B", sectionLabel: "Analytical & Problem Solving", marks: 1,
+    text: "A process has three steps: Step 1 takes 10 minutes, Step 2 takes 15 minutes and Step 3 takes 20 minutes. Step 2 and Step 3 can be performed simultaneously, but Step 3 can only start after Step 1. What is the minimum total time?",
+    options: ["30 minutes", "35 minutes", "40 minutes", "45 minutes"],
+    correctIndex: 1
   },
   {
-    id: 14, section: "H", sectionLabel: "HR Judgment & Process",
-    text: "How should sensitive employee information — like salary details or complaints — be handled?",
-    options: [
-      "Discussed generally among trusted colleagues, for a second opinion.",
-      "Kept private, unless it becomes a bigger issue later.",
-      "Shared with the reporting manager only if they specifically ask.",
-      "Shared only with authorised people, strictly on a need-to-know basis."
-    ],
-    weights: [1, 2, 3, 4]
+    id: 14, section: "B", sectionLabel: "Analytical & Problem Solving", marks: 1,
+    text: "A department's monthly expenses increase from ₹80,000 to ₹92,000. What is the percentage increase?",
+    options: ["10%", "12%", "15%", "18%"],
+    correctIndex: 2
   },
   {
-    id: 15, section: "H", sectionLabel: "HR Judgment & Process",
-    text: "Which of these best reflects sound judgment when handling employee matters?",
-    options: [
-      "Maintaining confidentiality and escalating appropriately when needed.",
-      "Casually discussing employee issues with other staff for context.",
-      "Making a quick judgment call to resolve things faster.",
-      "Trying to resolve it entirely alone before ever involving the manager."
-    ],
-    weights: [4, 1, 2, 3]
+    id: 15, section: "B", sectionLabel: "Analytical & Problem Solving", marks: 1,
+    text: "You have four tasks: Task A (urgent, high impact), Task B (non-urgent, high impact), Task C (urgent, low impact), Task D (non-urgent, low impact). Which should normally receive the highest priority?",
+    options: ["Task A", "Task B", "Task C", "Task D"],
+    correctIndex: 0
   },
   {
-    id: 16, section: "H", sectionLabel: "HR Judgment & Process",
-    text: "What best describes a KRA (Key Result Area)?",
-    options: [
-      "A performance warning issued to underperforming employees.",
-      "The main outcomes and responsibilities an employee is accountable for.",
-      "A recruitment tracking metric used during hiring.",
-      "A yearly appraisal document with no ongoing use."
-    ],
-    weights: [1, 4, 3, 2]
+    id: 16, section: "C", sectionLabel: "Numerical Reasoning", marks: 1,
+    text: "A product priced at ₹2,000 is discounted by 15%. What is the final price?",
+    options: ["₹1,650", "₹1,700", "₹1,750", "₹1,800"],
+    correctIndex: 1
   },
   {
-    id: 17, section: "H", sectionLabel: "HR Judgment & Process",
-    text: "How would you make sure every employee actually has clear, up-to-date KRAs?",
-    options: [
-      "Wait for managers to create and share KRAs on their own.",
-      "Create KRAs for every employee personally, without manager input.",
-      "Assume KRAs stay the same unless someone mentions a change.",
-      "Maintain a KRA master, follow up with managers, and ensure they're documented and reviewed periodically."
-    ],
-    weights: [1, 2, 3, 4]
+    id: 17, section: "C", sectionLabel: "Numerical Reasoning", marks: 1,
+    text: "The ratio of male to female employees in a department is 3:2. If there are 30 male employees, how many female employees are there?",
+    options: ["15", "18", "20", "24"],
+    correctIndex: 2
   },
   {
-    id: 18, section: "H", sectionLabel: "HR Judgment & Process",
-    text: "A manager keeps postponing an employee's performance review. What do you do?",
-    options: [
-      "Let the manager decide when it's convenient for them.",
-      "Send one reminder and move on.",
-      "Remind before the deadline, follow up, reschedule immediately, and escalate if it keeps being delayed.",
-      "Escalate immediately, without sending a reminder first."
-    ],
-    weights: [1, 2, 4, 3]
+    id: 18, section: "C", sectionLabel: "Numerical Reasoning", marks: 1,
+    text: "A candidate completes 18 questions in 12 minutes. At the same rate, approximately how many questions can they complete in 20 minutes?",
+    options: ["24", "27", "30", "36"],
+    correctIndex: 2
   },
   {
-    id: 19, section: "H", sectionLabel: "HR Judgment & Process",
-    text: "How do you make sure nothing falls through the cracks in your HR work?",
-    options: [
-      "Rely on memory, since the team and workload are small.",
-      "Use trackers, checklists, calendar reminders, and HRMS tools.",
-      "Keep a running to-do list on paper.",
-      "Check in with the founder regularly instead of tracking independently."
-    ],
-    weights: [1, 4, 2, 3]
+    id: 19, section: "C", sectionLabel: "Numerical Reasoning", marks: 1,
+    text: "The average of 5 numbers is 24. Four of the numbers are 18, 22, 26 and 30. What is the fifth number?",
+    options: ["20", "22", "24", "26"],
+    correctIndex: 3
   },
   {
-    id: 20, section: "H", sectionLabel: "HR Judgment & Process",
-    text: "Which best reflects comfort with the systems and tools HR work typically needs?",
-    options: [
-      "Prefers to avoid new software and stick to manual methods.",
-      "Has used one HR tool and is unsure about others.",
-      "Comfortable adapting to Excel, HRMS, ATS, and other tools as needed.",
-      "Comfortable with tools, but rarely updates them consistently."
-    ],
-    weights: [1, 2, 4, 3]
+    id: 20, section: "C", sectionLabel: "Numerical Reasoning", marks: 1,
+    text: "A company receives 500 applications. 20% are shortlisted. Of those shortlisted, 30% are selected. How many candidates are selected?",
+    options: ["20", "25", "30", "40"],
+    correctIndex: 2
   },
   {
-    id: 21, section: "H", sectionLabel: "HR Judgment & Process",
-    text: "Why maintain a proper tracker instead of relying on memory or scattered email threads?",
+    id: 21, section: "D", sectionLabel: "Verbal & Comprehension", marks: 1,
+    text: "Choose the statement that is logically closest to: \u201cEmployees cannot access the system unless they have completed the required training.\u201d",
     options: [
-      "It's not really necessary if the team is small.",
-      "It's mainly useful for reporting to the founder.",
-      "It's useful, but optional depending on workload.",
-      "It ensures accuracy, accountability, and continuity — even if you're unavailable."
+      "Everyone who completes training will access the system",
+      "Anyone accessing the system must have completed the required training",
+      "Training is optional for system access",
+      "Only managers can access the system"
     ],
-    weights: [1, 2, 3, 4]
+    correctIndex: 1
   },
   {
-    id: 22, section: "H", sectionLabel: "HR Judgment & Process",
-    text: "You have 3 open positions, 12 pending interviews, 2 candidates joining this week, an attendance issue, 3 pending KRAs, payroll due tomorrow, and the founder is unavailable for 3 hours. What do you do first?",
+    id: 22, section: "D", sectionLabel: "Verbal & Comprehension", marks: 1,
+    text: "A manager says: \u201cThe report is accurate, but it is not useful for making the decision.\u201d What does this most strongly imply?",
     options: [
-      "Start with whatever task feels easiest to clear quickly.",
-      "Wait for the founder to return and assign priorities.",
-      "Focus only on recruitment, since it's the core of the role.",
-      "Prioritise the time-bound items — payroll and joining formalities — then work through the rest by urgency and importance."
+      "The report contains incorrect information",
+      "The report contains relevant information but lacks decision-making value",
+      "The manager does not trust the person who prepared it",
+      "The report should not have been prepared"
     ],
-    weights: [1, 2, 3, 4]
+    correctIndex: 1
   },
   {
-    id: 23, section: "H", sectionLabel: "HR Judgment & Process",
-    text: "When several urgent tasks compete for your time at once, what's your general approach?",
-    options: [
-      "Handle tasks strictly in the order they arrived.",
-      "Try to multitask everything simultaneously.",
-      "Focus on whatever the founder mentioned most recently.",
-      "Distinguish what's urgent from what's important, and sequence accordingly."
-    ],
-    weights: [2, 1, 3, 4]
+    id: 23, section: "D", sectionLabel: "Verbal & Comprehension", marks: 1,
+    text: "Choose the word closest in meaning to \u201cprudent.\u201d",
+    options: ["Careless", "Practical and cautious", "Aggressive", "Fast"],
+    correctIndex: 1
   },
   {
-    id: 24, section: "H", sectionLabel: "HR Judgment & Process",
-    text: "Payroll inputs are due tomorrow, but an employee's attendance issue also needs attention today. How do you balance both?",
+    id: 24, section: "D", sectionLabel: "Verbal & Comprehension", marks: 1,
+    text: "Read the statement: \u201cAlthough sales increased during the quarter, profit declined because operating costs increased significantly.\u201d Which conclusion is supported?",
     options: [
-      "Delay payroll to handle the attendance issue first.",
-      "Ignore the attendance issue until payroll is fully done.",
-      "Ask someone else to handle payroll so you can focus on attendance.",
-      "Handle the time-bound payroll deadline, while scheduling a prompt conversation on attendance."
+      "Sales were lower than the previous quarter",
+      "Operating costs had an adverse effect on profit",
+      "The company made a loss",
+      "Customers bought fewer products"
     ],
-    weights: [2, 1, 3, 4]
+    correctIndex: 1
   },
   {
-    id: 25, section: "H", sectionLabel: "HR Judgment & Process",
-    text: "A candidate misses a scheduled interview without informing you. What's the most professional way to follow up?",
+    id: 25, section: "D", sectionLabel: "Verbal & Comprehension", marks: 1,
+    text: "Which statement contains an assumption?",
     options: [
-      "A message expressing frustration about the wasted time.",
-      "No follow-up — assume they're simply not interested.",
-      "A very brief one-line message, with no context given.",
-      "A polite but clear message asking for an update and next steps."
+      "The meeting starts at 10 AM.",
+      "The report contains 20 pages.",
+      "The client will approve the proposal because they liked the presentation.",
+      "The invoice was sent yesterday."
     ],
-    weights: [1, 2, 3, 4]
+    correctIndex: 2
   },
   {
-    id: 26, section: "H", sectionLabel: "HR Judgment & Process",
-    text: "An employee hasn't submitted a required document, despite two reminders. What tone should your next message have?",
+    id: 26, section: "E", sectionLabel: "Situational Judgment", marks: 1,
+    text: "You are given a task with a deadline, but one important piece of information is missing. What is the best approach?",
     options: [
-      "Apologetic — in case HR didn't follow up enough.",
-      "Casual, treating it as a minor issue.",
-      "Stern, with an immediate warning of consequences.",
-      "Firm but respectful, clearly stating the requirement and next deadline."
+      "Make an assumption and complete it quickly",
+      "Wait until someone provides the information",
+      "Identify exactly what is missing and clarify it while progressing with what you can",
+      "Complete the task without mentioning the missing information"
     ],
-    weights: [2, 1, 3, 4]
+    correctIndex: 2
   },
   {
-    id: 27, section: "H", sectionLabel: "HR Judgment & Process",
-    text: "What best reflects a genuinely strong professional achievement in HR?",
+    id: 27, section: "E", sectionLabel: "Situational Judgment", marks: 1,
+    text: "You have two tasks due today. One is important but takes several hours; the other is less important but can be completed quickly. What should you generally do?",
     options: [
-      "A general statement about enjoying HR work.",
-      "A measurable outcome — such as reduced hiring time or improved retention.",
-      "A description of daily HR tasks, without any outcomes mentioned.",
-      "A list of HR certifications completed."
+      "Always complete the quickest task first",
+      "Always complete the longest task first",
+      "Consider urgency, importance and dependencies before deciding",
+      "Choose whichever task you prefer"
     ],
-    weights: [1, 4, 2, 3]
+    correctIndex: 2
   },
   {
-    id: 28, section: "H", sectionLabel: "HR Judgment & Process",
-    text: "This role involves a lot of repetitive follow-up, documentation, and sometimes uncomfortable conversations. What best reflects genuine fit for it?",
+    id: 28, section: "E", sectionLabel: "Situational Judgment", marks: 1,
+    text: "You notice that a colleague's work contains a small error that could affect the final submission. What is the most appropriate response?",
     options: [
-      "Mainly interested in employee engagement events and social activities.",
-      "Open to it, but would prefer creative HR work when possible.",
-      "Comfortable with it, as long as it isn't too repetitive.",
-      "Comfortable with structure, follow-up, and responsibility as core parts of the role."
+      "Correct it yourself without telling them",
+      "Ignore it because it is their responsibility",
+      "Inform them and make sure the issue is resolved before submission",
+      "Immediately report them to the manager"
     ],
-    weights: [1, 2, 3, 4]
+    correctIndex: 2
   },
   {
-    id: 29, section: "H", sectionLabel: "HR Judgment & Process",
-    text: "What generally happens once a candidate accepts a job offer?",
+    id: 29, section: "E", sectionLabel: "Situational Judgment", marks: 1,
+    text: "Your manager gives you an instruction that appears different from the process normally followed. What should you do first?",
     options: [
-      "Hiring is essentially complete — the main work is done.",
-      "Hiring is complete only once the employee actually joins.",
-      "It depends on how senior the role is.",
-      "It's mostly complete, with just document collection left."
+      "Ignore the instruction and follow the old process",
+      "Follow it without question",
+      "Clarify the requirement and understand the reason for the difference",
+      "Ask a colleague to decide what you should do"
     ],
-    weights: [1, 4, 2, 3]
+    correctIndex: 2
   },
   {
-    id: 30, section: "H", sectionLabel: "HR Judgment & Process",
-    text: "Which statement best reflects what makes someone successful long-term in this HR role?",
+    id: 30, section: "E", sectionLabel: "Situational Judgment", marks: 1,
+    text: "You finish your assigned work earlier than expected. What is the most productive next step?",
     options: [
-      "Being well-liked by everyone in the office.",
-      "Deep knowledge of HR terminology and theory.",
-      "Strong knowledge of labour law above all else.",
-      "Discipline, follow-through, confidentiality, and calm communication."
+      "Wait until someone gives you another task",
+      "Leave the workplace early",
+      "Review your work and look for useful pending work or learning opportunities",
+      "Start working on someone else's task without informing them"
     ],
-    weights: [1, 2, 3, 4]
+    correctIndex: 2
   }
 ];
 
 // ============================================================
 // SHUFFLE ENGINE
-// Every question's options are Fisher-Yates shuffled per session,
-// so the strongest answer isn't always in the same position.
-// Options and their weights are shuffled together as pairs, so
+// Options are Fisher-Yates shuffled per session, so the correct
+// answer isn't always in the same position. correctIndex is
+// re-derived after shuffling via a { text, correct } pairing, so
 // scoring is never broken regardless of display order.
 // ============================================================
 
@@ -354,7 +252,7 @@ function shuffleQuestionOptions(question) {
   const q = JSON.parse(JSON.stringify(question));
 
   const paired = q.options.map(function(text, i) {
-    return { text: text, weight: q.weights[i] };
+    return { text: text, correct: (i === q.correctIndex) };
   });
 
   // Fisher-Yates
@@ -363,8 +261,8 @@ function shuffleQuestionOptions(question) {
     const tmp = paired[i]; paired[i] = paired[j]; paired[j] = tmp;
   }
 
-  q.options = paired.map(function(p) { return p.text; });
-  q.weights = paired.map(function(p) { return p.weight; });
+  q.options      = paired.map(function(p) { return p.text; });
+  q.correctIndex = paired.findIndex(function(p) { return p.correct; });
 
   return q;
 }

@@ -316,7 +316,7 @@ function verifyReferenceId() {
     gvizFetch(
       GENERAL_SHEET_ID,
       GENERAL_SHEET_TAB,
-      "select B,C,D,E,F,K,O where B = '" + safeRefId + "'",
+      "select B,C,D,E,F,K,N where B = '" + safeRefId + "'",
       function(genRows) {
         if (genRows.length === 0) {
           finish(NOT_ELIGIBLE_MSG);
@@ -543,19 +543,20 @@ DOM.btnModalConfirm.addEventListener('click', function() {
 function calculateScores() {
   var totalScore = 0;
 
-  // HR questions are weighted (1–4 per option, best answer = 4) rather
-  // than right/wrong — 30 questions × max weight 4 = 120 possible.
+  // Objective right/wrong — 30 questions × 1 mark each = 30 possible.
+  // Bands match the source PDF exactly (Non_Tech_Test.pdf answer key page).
   SHUFFLED_QUESTIONS.forEach(function(q, i) {
     var chosen = state.answers[i];
     if (chosen === undefined) return;
-    totalScore += q.weights[chosen];
+    if (chosen === q.correctIndex) {
+      totalScore += q.marks;
+    }
   });
 
   var rating =
-    totalScore >= 105 ? 'Exceptional'    :
-    totalScore >= 90  ? 'Strong Hire'    :
-    totalScore >= 75  ? 'Hire'           :
-    totalScore >= 60  ? 'Borderline'     : 'Not Recommended';
+    totalScore >= 24 ? 'Excellent'  :
+    totalScore >= 20 ? 'Good'       :
+    totalScore >= 15 ? 'Borderline' : 'Weak';
 
   return { totalScore, rating, referenceId: state.candidate.refId || '' };
 }
@@ -578,7 +579,7 @@ function finaliseSubmission() {
     candidateRefId: state.candidate.refId,
     domain:         PORTAL_DOMAIN,
     totalScore:     scores.totalScore,
-    maxScore:       120,
+    maxScore:       30,
     rating:         scores.rating,
     submissionTime: subTime,
     answers:        state.answers
