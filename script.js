@@ -150,7 +150,6 @@ const DOM = {
   rulesModal:         document.getElementById('rules-modal'),
   btnRulesUnderstood: document.getElementById('btn-rules-understood'),
 
-  refId:          document.getElementById('ref-id')
 };
 
 // ── Exam Rules Modal ──────────────────────────────────────────────
@@ -875,7 +874,6 @@ function finaliseSubmission() {
   DOM.assSection.style.display   = 'none';
   DOM.timerDisplay.style.display = 'none';
   DOM.confSection.style.display  = 'block';
-  DOM.refId.textContent = scores.referenceId;
 }
 
 // ── Google Sheets ─────────────────────────────────────────────────
